@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,10 @@ INSTALLED_APPS = [
 
     #? Custom Apps
     'core',
+    'userAuth',
 ]
+
+AUTH_USER_MODEL = 'userAuth.User' #! The user model we created  "userAuth is the app we created for authentication"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,3 +136,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+JAZZMIN_SETTINGS = {
+    'site_header': "Lexy shop",
+    'site_brand': "We have it all",
+    'site_logo': "img/logo.png",
+    'copyright': "Copyright | all rights reserved",
+}
