@@ -110,6 +110,11 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
+.form-layout{
+    border-radius: 15px;
+    width: 500px;
+}
+
 
 .section-title {
 	margin-bottom: 50px;

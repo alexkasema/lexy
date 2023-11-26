@@ -55,9 +55,15 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
+            {% if request.user.is_authenticated %}
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                <a href="{% url 'userAuth:logout' %}"><i class="fa fa-user"></i> Logout</a>
             </div>
+            {% else %}
+            <div class="header__top__right__auth">
+                <a href="{% url 'userAuth:login' %}"><i class="fa fa-user"></i> Login</a>
+            </div>
+            {% endif %}
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -123,9 +129,15 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                            {% if request.user.is_authenticated %}
+                                <div class="header__top__right__auth">
+                                    <a href="{% url 'userAuth:logout' %}"><i class="fa fa-user"></i> Logout</a>
+                                </div>
+                                {% else %}
+                                <div class="header__top__right__auth">
+                                    <a href="{% url 'userAuth:login' %}"><i class="fa fa-user"></i> Login</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -172,6 +184,19 @@
         </div>
     </header>
      <!-- Header Section End -->
+     <br>
+        <!-- Notification messages -->
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <p id="message-timer" class="alert alert-success text-center float-center message-text">
+                    <i class="fa fa-check-square" aria-hidden="true"></i> &nbsp; {{message}}
+                </p>
+            {% else %}
+            <p id="message-timer" class="alert alert-danger text-center float-center message-text">
+                <i class="fa fa-check-square" aria-hidden="true"></i> &nbsp; {{message}}
+            </p>
+            {% endif %}
+        {% endfor %}
 
 {% block content %}
 
