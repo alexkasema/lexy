@@ -186,17 +186,15 @@
      <!-- Header Section End -->
      <br>
         <!-- Notification messages -->
-        {% for message in messages %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                <p id="message-timer" class="alert alert-success text-center float-center message-text">
+        {% if messages %}
+            {% for message in messages %}
+                
+                <p id="message-timer" class="alert alert-{{message.tags}} text-center float-center message-text">
                     <i class="fa fa-check-square" aria-hidden="true"></i> &nbsp; {{message}}
                 </p>
-            {% else %}
-            <p id="message-timer" class="alert alert-danger text-center float-center message-text">
-                <i class="fa fa-check-square" aria-hidden="true"></i> &nbsp; {{message}}
-            </p>
-            {% endif %}
-        {% endfor %}
+                 
+            {% endfor %}
+        {% endif %}
 
 {% block content %}
 
