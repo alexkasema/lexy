@@ -13,3 +13,12 @@ def index(request):
         'products': products
     }
     return render(request, 'core/index.html', context)
+
+def product_list_view(request):
+
+    products = Product.objects.filter(product_status = "published", featured=True).order_by('id')
+
+    context = {
+        'products': products
+    }
+    return render(request, 'core/product_list.html', context)
