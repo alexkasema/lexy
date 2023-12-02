@@ -120,7 +120,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">{{c.title}}</a></h6>
+                                    <h6><a href="{% url 'core:category' c.cid %}">{{c.title}}</a></h6>
                                     <h5>{{c.category.count}} Product{{c.category.count|pluralize}}</h5>
                                 </div>
                             </div>

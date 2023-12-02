@@ -2932,9 +2932,11 @@ ol {
 	}
 	.hero__categories__all {
 		padding: 10px 25px 10px 20px;
+		
 	}
 	.hero__categories ul {
 		padding-left: 20px;
+		
 	}
 	.latest-product__slider.owl-carousel .owl-nav {
 		right: 0;

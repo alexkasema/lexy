@@ -29,3 +29,14 @@ def category_list_view(request):
 
     context = {'categories': categories}
     return render(request, 'core/category_list.html', context)
+
+def category_product_list_view(request, cid):
+
+    category = Category.objects.get(cid=cid)
+    products = Product.objects.filter(product_status = "published", category=category)
+
+    context = {
+        'category': category, 'products': products
+    }
+
+    return render(request, 'core/category_product_list.html', context)
