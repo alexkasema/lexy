@@ -57,6 +57,8 @@ class Vendor(models.Model):
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="I'm a vendor")
 
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
     address = models.CharField(max_length=100, default="123 main street.")
     contact = models.CharField(max_length=100, default="+123 (456) 789")
     chat_resp_time = models.CharField(max_length=100, default="100")
@@ -78,7 +80,7 @@ class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="abcdefgh12345")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
-    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="products")
 
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
