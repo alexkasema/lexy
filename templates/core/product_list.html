@@ -246,11 +246,14 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
+                                {% for product in products %}
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{% static 'img/product/discount/pd-1.jpg' %}">
-                                            <div class="product__discount__percent">-20%</div>
+                                            data-setbg="{{product.image.url}}">
+                                            <div class="product__discount__percent">
+                                                -{{product.get_percentage|floatformat:0}}%
+                                            </div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -258,12 +261,13 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                            <span>{{product.category.title}}</span>
+                                            <h5><a href="{% url 'core:product' product.pid %}">{{product.title}}</a></h5>
+                                            <div class="product__item__price">${{product.price}} <span>${{product.old_price}}</span></div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

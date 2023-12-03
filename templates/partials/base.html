@@ -154,7 +154,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li><a href="{% url 'core:products' %}">Shop</a></li>
                             <li><a href="{% url 'core:categories' %}">Categories</a>
                                 <ul class="header__menu__dropdown">
                                     {% for category in categories %}

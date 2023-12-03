@@ -27,10 +27,11 @@ def product_list_view(request):
 def product_details_view(request, pid):
 
     product = Product.objects.get(pid=pid)
+    products = Product.objects.filter(category=product.category).exclude(pid=pid)[:4]
     p_image = product.p_images.all()
 
     context = {
-        'product': product, 'p_image': p_image
+        'product': product, 'p_image': p_image, 'products': products
     }
 
     return render(request, 'core/product_details.html', context)
