@@ -137,7 +137,7 @@
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="#">{{product.title}}</a></h6>
+                                <h6><a href="{% url 'core:product' product.pid %}">{{product.title}}</a></h6>
                                 <h5>${{product.price}}</h5>
                             </div>
                         </div>

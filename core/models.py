@@ -55,6 +55,8 @@ class Vendor(models.Model):
 
     title = models.CharField(max_length=100, default="Lobos")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+
     description = models.TextField(null=True, blank=True, default="I'm a vendor")
 
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -121,7 +123,7 @@ class Product(models.Model):
     
 class ProductImages(models.Model):
     images = models.ImageField(upload_to="product-images", default="product.jpd")
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, related_name="p_images" ,on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

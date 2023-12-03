@@ -17,11 +17,23 @@ def index(request):
 def product_list_view(request):
 
     products = Product.objects.filter(product_status = "published", featured=True).order_by('id')
+    categories = Category.objects.all()
 
     context = {
-        'products': products
+        'products': products, 'categories': categories
     }
     return render(request, 'core/product_list.html', context)
+
+def product_details_view(request, pid):
+
+    product = Product.objects.get(pid=pid)
+    p_image = product.p_images.all()
+
+    context = {
+        'product': product, 'p_image': p_image
+    }
+
+    return render(request, 'core/product_details.html', context)
 
 def category_list_view(request):
 
@@ -49,3 +61,13 @@ def vendors_list_view(request):
         'vendors': vendors
     }
     return render(request, 'core/vendors_list.html', context)
+
+def vendor_details_view(request, vid):
+
+    vendor = Vendor.objects.get(vid=vid)
+    products = Product.objects.filter(vendor=vendor, product_status = "published")
+
+    context = {
+        'vendor': vendor, 'products': products
+    }
+    return render(request, 'core/vendor_details.html', context)

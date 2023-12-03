@@ -5,7 +5,7 @@
 {% block content %}
 
     <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
+    <!-- <section class="hero hero-normal">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
@@ -65,7 +65,7 @@
                     <div class="breadcrumb__text">
                         <h2>Organi Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="{% url 'core:index' %}">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -82,18 +82,11 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Department</h4>
+                            <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter & Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya & Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
+                                {% for category in categories %}
+                                <li><a href="{% url 'core:category' category.cid %}">{{category.title}}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <div class="sidebar__item">
@@ -310,7 +303,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">{{product.title}}</a></h6>
+                                    <h6><a href="{% url 'core:product' product.pid %}">{{product.title}}</a></h6>
                                     <h5>${{product.price}}</h5>
                                 </div>
                             </div>
