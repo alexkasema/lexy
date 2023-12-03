@@ -23,4 +23,7 @@ urlpatterns = [
     #! tags
     path('products/tags/<slug:tag_slug>', views.tag_list_view, name="tags"),
 
+    #! add reviews
+    path('reviews/<pid>', views.review_form_view, name="reviews"),
+
 ]
