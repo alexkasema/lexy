@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
 
+    #? third party libraries
+    'taggit',
+
     #? Custom Apps
     'core',
     'userAuth',

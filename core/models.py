@@ -1,6 +1,8 @@
 from django.db import models
+
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
+from taggit.managers import TaggableManager
 
 from userAuth.models import User
 
@@ -84,7 +86,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="products")
 
-    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    tags = TaggableManager(blank=True)
 
 
     title = models.CharField(max_length=100, default="Fresh produce")

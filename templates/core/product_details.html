@@ -91,6 +91,11 @@
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Vendor</b> <span>{{product.vendor.title}}</span></li>
+                            <li><b>Tags</b> 
+                                <span>
+                                    {% for tag in product.tags.all %}<a href="{% url 'core:tags' tag.slug %}"> #{{tag.name}} </a>, {% endfor %}
+                                </span>
+                            </li>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Vendor Address</b> <span>{{product.vendor.address}}</span></li>
