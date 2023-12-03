@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     #? third party libraries
     'taggit',
+    'ckeditor',
 
     #? Custom Apps
     'core',
@@ -139,6 +140,24 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'codeSnippet_theme': 'monokai',
+        'toolbar': 'all',
+        'extraPlugins': ', '.join(
+            [
+                'codesnippet',
+                'widget',
+                'dialog',
+            ]
+        ),
+    }
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

@@ -4,8 +4,12 @@ from . models import Product, Category, Vendor, ProductImages, CartOrder, CartOr
 
 def default(request):
     categories = Category.objects.all()
-    # address = Address.objects.get(user=request.user)
+
+    try:
+        address = Address.objects.get(user=request.user)
+    except:
+        address = None
 
     return {
-        'categories': categories,
+        'categories': categories, 'address': address
     }

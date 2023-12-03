@@ -4,6 +4,8 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from taggit.managers import TaggableManager
 
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from userAuth.models import User
 
 
@@ -59,7 +61,7 @@ class Vendor(models.Model):
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
     cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
 
-    description = models.TextField(null=True, blank=True, default="I'm a vendor")
+    description = RichTextUploadingField(null=True, blank=True, default="I'm a vendor")
 
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -91,12 +93,14 @@ class Product(models.Model):
 
     title = models.CharField(max_length=100, default="Fresh produce")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
-    description = models.TextField(null=True, blank=True, default="This is a product")
+    #? description = models.TextField(null=True, blank=True, default="This is a product")
+    description = RichTextUploadingField(null=True, blank=True, default="This is a product")
+
 
     price = models.DecimalField(max_digits=999999, decimal_places=2, default="1.99")
     old_price = models.DecimalField(max_digits=999999, decimal_places=2, default="2.99")
 
-    specifications = models.TextField(null=True, blank=True)
+    specifications = RichTextUploadingField(null=True, blank=True)
 
     product_status = models.CharField(choices=STATUS ,max_length=20, default="in-review")
 
