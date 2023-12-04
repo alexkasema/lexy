@@ -86,21 +86,25 @@
                             <ul>
                                 {% for category in categories %}
                                 <li>
-                                    <input class="form-check-input filter-checkbox" name="checkbox" data-filter="category" type="checkbox" value="{{category.id}}" id="flexCheckDefault1">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     <a href="{% url 'core:category' category.cid %}">{{category.title}}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="sidebar__item">
-                            {% for v in vendors %}
                             <div class="form-check">
-                                <input class="form-check-input filter-checkbox" name="checkbox" data-filter="vendor" type="checkbox" value="{{v.id}}" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
-                                  {{v.title}}
+                                  Default checkbox
                                 </label>
-                            </div>
-                            {% endfor %}
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                  Checked checkbox
+                                </label>
+                              </div>
                         </div>
                         <div class="sidebar__item">
                             <h4>Price</h4>
@@ -267,7 +271,11 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
+                                    {% if query %}
                                     <h6><span>{{products.count}}</span> Product{{products.count|pluralize}} found</h6>
+                                    {% else %}
+                                    <h6><span>No product Found</span> </h6>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -278,9 +286,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="filtered-product">
-                        {% for product in products %}
+                    <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-6">
+                            {% for product in products %}
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{product.image.url}}">
                                     <ul class="product__item__pic__hover">
@@ -294,8 +302,9 @@
                                     <h5>${{product.price}}</h5>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
+                        
                     </div>
                     <div class="product__discount">
                         <div class="section-title product__discount__title">

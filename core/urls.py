@@ -26,4 +26,10 @@ urlpatterns = [
     #! add reviews
     path('reviews/<pid>', views.review_form_view, name="reviews"),
 
+    #! Search by product title
+    path('search/', views.search_products_view, name="search_products"),
+
+    #! filter products by category, vendor
+    path('filter_products/', views.filter_products_view, name="filter_products"),
+
 ]
