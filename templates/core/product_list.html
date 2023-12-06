@@ -93,6 +93,7 @@
                             </ul>
                         </div>
                         <div class="sidebar__item">
+                            <h4>Vendors</h4>
                             {% for v in vendors %}
                             <div class="form-check">
                                 <input class="form-check-input filter-checkbox" name="checkbox" data-filter="vendor" type="checkbox" value="{{v.id}}" id="flexCheckDefault">
@@ -105,18 +106,30 @@
                         <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                <input type="range" id="range" class="slider-range mt-20 w-100" name="range" value="{{min_max_price.price__min|floatformat:2}}"
+                                 min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" oninput="max_price.value=this.value">
+                                <div class="d-flex justify-content-between">
+                                    <div class="caption">From:$ <strong class="text-brand" id="slider-range-value1">{{min_max_price.price__min|floatformat:2}}</strong></div>
+                                    <div class="caption">To:$ <strong class="text-brand" id="slider-range-value2">{{min_max_price.price__max|floatformat:2}}</strong></div>
+                                </div>
+                                <input type="number" id="max_price" min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" placeholder="Current Price"
+                                onkeyup="range.value = this.value" value="{{min_max_price.price__min|floatformat:2}}">
+                                <div>
+                                    <button class="btn btn-success mt-20 w-100">Filter</button>
+                                </div>
+                               
+                                <!-- <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                     data-min="10" data-max="540">
                                     <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
+                                </div> -->
+                                <!-- <div class="range-slider">
                                     <div class="price-input">
                                         <input type="text" id="minamount">
                                         <input type="text" id="maxamount">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
