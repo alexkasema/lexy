@@ -32,4 +32,7 @@ urlpatterns = [
     #! filter products by category, vendor
     path('filter_products/', views.filter_products_view, name="filter_products"),
 
+    #! add product to cart
+    path('add_to_cart', views.add_to_cart, name="add_to_cart"),
+
 ]

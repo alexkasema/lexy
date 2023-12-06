@@ -80,17 +80,25 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">${{product.price}}</div>
+                        <span class="product__details__price">$<span class="product__details__price current-product-price">{{product.price}}</span></span>
                         <p>{{product.description|truncatechars:150|safe}}</p>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
+                        <div>
+                            <input type="hidden" id="" class="product-id" value="{{product.id}}">
+                            <input type="hidden" id="" class="product-title" value="{{product.title}}">
+                            
+                            <input type="number" value="1" id="product-quantity" class="w-25">
+                            
+                            <!-- <div class="product__details__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" value="1">
+                                    </div>
+                                </div>    
+                            </div> -->
+                            <button class="btn-primary" id="add-to-cart-btn" type="submit">ADD TO CART</button>
+                            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        
                         <ul>
                             <li><b>Vendor</b> <span>{{product.vendor.title}}</span></li>
                             <li><b>Tags</b> 
