@@ -15,9 +15,10 @@ from . forms import ProductReviewForm
 def index(request):
     #! products = Product.objects.all().order_by('-id')
     products = Product.objects.filter(product_status = "published", featured=True).order_by('id')
+    categories = Category.objects.all()
 
     context = {
-        'products': products
+        'products': products, 'c': categories
     }
     return render(request, 'core/index.html', context)
 
@@ -185,6 +186,8 @@ def add_to_cart(request):
         'title': request.GET['title'],
         'quantity': request.GET['quantity'],
         'price': request.GET['price'],
+        'image': request.GET['image'],
+        'pid': request.GET['pid'],
     }
 
     if 'cart_data_obj' in request.session:
