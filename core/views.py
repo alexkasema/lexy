@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 
 from django.template.loader import render_to_string
 
 from . models import Product, Category, Vendor, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
 from taggit.models import Tag
+
+from django.contrib import messages #! for flash messages
 
 from django.db.models import Avg
 
@@ -207,3 +209,15 @@ def add_to_cart(request):
         'data': request.session['cart_data_obj'],
         'total_cart_items': len(request.session['cart_data_obj'])
     })
+
+def cart_view(request):
+
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['quantity']) * float(item['price'])
+        return render(request, 'core/cart.html', {'cart_data': request.session['cart_data_obj'], 'total_cart_items': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+    else:
+        messages.warning(request, 'Your cart is empty')
+        return redirect('core:index')
+    
