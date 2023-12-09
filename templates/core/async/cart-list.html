@@ -26,11 +26,12 @@
                                         ${{item.price|floatformat:2}}
                                     </td>
                                     <td class="shoping__cart__quantity">
-                                        <div class="quantity">
+                                        <!-- <div class="quantity">
                                             <div class="pro-qty">
                                                 <input type="text" value="{{item.quantity}}">
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <input class="product-quantity-{{ p_id }}" type="number" value="{{item.quantity}}">
                                     </td>
                                     <td class="shoping__cart__total">
                                         ${% widthratio item.price 1 item.quantity %}
@@ -41,7 +42,9 @@
                                         </button>
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close">r</span>
+                                        <button class="update-product" data-product="{{p_id}}" style="border: none;">
+                                            <span class="icon_close"></span>r
+                                        </button>
                                     </td>
                                 </tr>
                                 {% endfor %}

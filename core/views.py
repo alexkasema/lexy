@@ -239,4 +239,21 @@ def delete_item_from_cart(request):
 
     return JsonResponse({"data": data, "total_cart_items": len(request.session['cart_data_obj'])})
             
-    
+def update_cart(request):
+
+    product_id = str(request.GET['id'])
+    product_quantity = request.GET['quantity']
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['quantity'] = product_quantity
+            request.session['cart_data_obj'] = cart_data
+
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['quantity']) * float(item['price'])
+
+    data = render_to_string("core/async/cart-list.html", {'cart_data': request.session['cart_data_obj'], 'total_cart_items': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+
+    return JsonResponse({"data": data, "total_cart_items": len(request.session['cart_data_obj'])})
