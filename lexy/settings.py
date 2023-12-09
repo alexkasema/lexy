@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #? third party libraries
     'taggit',
     'ckeditor',
+    'paypal.standard.ipn',
 
     #? Custom Apps
     'core',
@@ -52,7 +53,12 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+LOGIN_URL = 'userAuth:login'
 AUTH_USER_MODEL = 'userAuth.User' #! The user model we created  "userAuth is the app we created for authentication"
+
+PAYPAL_RECEIVER_EMAIL = 'sb-r8zvg26633719@business.example.com'
+PAYPAL_TEST = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -170,3 +176,5 @@ JAZZMIN_SETTINGS = {
     'site_logo': "img/logo.png",
     'copyright': "Copyright | all rights reserved",
 }
+
+
