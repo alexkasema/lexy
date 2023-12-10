@@ -312,11 +312,16 @@ def checkout_view(request):
     paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
 
 
-    cart_total_amount = 0
-    if 'cart_data_obj' in request.session:
-        for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['quantity']) * float(item['price'])
-        return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'], 'total_cart_items': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount, 'paypal_payment_button': paypal_payment_button})
+    # cart_total_amount = 0
+    # if 'cart_data_obj' in request.session:
+    #     for p_id, item in request.session['cart_data_obj'].items():
+    #         cart_total_amount += int(item['quantity']) * float(item['price'])
+    try:
+        active_address = Address.objects.filter(user=request.user, status=True)
+    except:
+        messages.warning(request, "There are multiple active addresses, only one should be active")
+        active_address=None
+    return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'], 'total_cart_items': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount, 'paypal_payment_button': paypal_payment_button, 'active_address': active_address})
 
 @login_required
 def payment_completed_view(request):
@@ -332,3 +337,46 @@ def payment_completed_view(request):
 def payment_failed_view(request):
     return render(request, 'core/payment-failed.html')
 
+@login_required
+def dashboard_view(request):
+
+    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+
+    addresses = Address.objects.filter(user=request.user)
+
+    if request.method == "POST":
+        address = request.POST.get("address")
+        mobile = request.POST.get("mobile")
+
+        new_address = Address.objects.create(
+            user = request.user,
+            address = address,
+            mobile = mobile,
+        )
+        messages.success(request, "Address Added successfully")
+        return redirect("core:dashboard")
+
+    context = {
+        'orders': orders,
+        'address': addresses,
+    }
+    return render(request, 'core/dashboard.html', context)
+
+def order_detail_view(request, id):
+
+    order = CartOrder.objects.get(user=request.user, id=id)
+
+    order_items = CartOrderItems.objects.filter(order=order)
+
+    context = {
+        'order_items': order_items
+    }
+    return render(request, 'core/order_details.html', context)
+
+def make_address_default_view(request):
+    id = request.GET['id']
+    Address.objects.update(status=False) #! we are making all status to be false because we are about to change it
+    Address.objects.filter(id=id).update(status=True)
+    return JsonResponse({
+        "boolean": True,
+    })

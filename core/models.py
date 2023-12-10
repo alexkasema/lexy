@@ -201,6 +201,7 @@ class WishList(models.Model):
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    mobile = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=100, null=True)
     status = models.BooleanField(default=False)
 

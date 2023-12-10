@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/my_style.css' %}" type="text/css">
 </head>
 
 <body>
@@ -168,7 +169,8 @@
                             </li>
                             <li><a href="{% url 'core:index' %}">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
+                                    <li><a href="{% url 'core:products' %}">Shop Details</a></li>
                                     <li><a href="{% url 'core:cart' %}">Shoping Cart</a></li>
                                     <li><a href="{% url 'core:checkout' %}">Check Out</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>

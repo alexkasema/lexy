@@ -56,4 +56,13 @@ urlpatterns = [
     #! payment failed url
     path('payment-failed', views.payment_failed_view, name="payment-failed"),
 
+     #! dashboard url
+    path('dashboard/', views.dashboard_view, name="dashboard"),
+
+     #! order details url
+    path('dashboard/order/<int:id>', views.order_detail_view, name="order-details"),
+
+    #! making address default url
+    path('make-default-address', views.make_address_default_view, name="make-default-address"),
+
 ]

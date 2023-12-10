@@ -176,5 +176,3 @@ JAZZMIN_SETTINGS = {
     'site_logo': "img/logo.png",
     'copyright': "Copyright | all rights reserved",
 }
-
-

@@ -1,0 +1,48 @@
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <p>Hello {{request.user|title}}</p>
+
+    </div>
+    <div class="row">
+        <h2>Products in this order</h2>
+        <a href="{% url 'core:dashboard' %}" class="btn-small d-block"> back </a>
+        <br> 
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Order Invoice</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for o in order_items %}
+            <tr>
+                <td>INVOICE_NO-{{o.id}}</td>
+                <td>
+                    <p><img src="{{o.image}}" style="width: 40px; height: 40px; object-fit: cover;" alt=""></p>
+                </td>
+                <td>{{o.item|title}}</td>
+                <td>{{o.price}}</td>
+                <td>{{o.quantity}}</td>
+                <td>{{o.total}}</td>
+                <!-- <td><a href="{% url 'core:order-details' o.id %}" class="btn-small d-block"> view</a></td> -->
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+</div>
+
+{% endblock content %}
