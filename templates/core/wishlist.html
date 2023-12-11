@@ -1,0 +1,72 @@
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <p>Hello {{request.user|title}}</p>
+
+    </div>
+    <div class="row">
+        <h2>Products in Your Wishlist</h2>
+        <a href="{% url 'core:dashboard' %}" class="btn-small d-block"> back </a>
+        <br> 
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock Status</th>
+                <th>Action</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for w in wishlist %}
+            <tr class="pt-30">
+                
+                <td>
+                    <p><img src="{{w.product.image.url}}" style="width: 40px; height: 40px; object-fit: cover;" alt=""></p>
+                </td>
+                <td>
+                    <a href="{% url 'core:product' w.product.pid %}">{{w.product.title|truncatechars:30}}</a>
+                </td>
+                <td>
+                    <h5 class="current-product-price-{{w.product.id}}">${{w.product.price}}</h5>
+                </td>
+                <td class="text-center">
+                    {% if w.product.in_stock %} In Stock {% else %} Out of Stock {% endif %}
+                </td>
+                <td>
+                    <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{w.product.id}}" >
+                    <input type="hidden" class="product-pid-{{w.product.id}}" value="{{w.product.pid}}">
+                    <input type="hidden" class="product-image-{{w.product.id}}" value="{{w.product.image.url}}">
+                    <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
+                    <input type="hidden" class="product-title-{{w.product.id}}" value="{{w.product.title}}">
+                    <button class="btn btn-success btn-small add-to-cart-btn" data-index="{{w.product.id}}">
+                        Add to cart
+                    </button>
+                </td>
+                <td>
+                    <a href="" ">Remove</a>
+                </td>
+                
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td><p>Nothing wishlist yet...</p></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+</div>
+
+{% endblock content %}

@@ -6,7 +6,7 @@ from django.contrib import messages #! for flash messages
 
 from . forms import MyUserCreationForm, LoginForm
 
-from . models import User
+from . models import User, Profile
 
 # Create your views here.
 
@@ -60,6 +60,16 @@ def login_view(request):
     
     context = {}
     return render(request, 'userAuth/login.html', context)
+
+
+def user_settings_view(request):
+
+    profile = Profile.objects.get(user=request.user)
+
+    context = {
+        'profile': profile
+    }
+    return render(request, 'userAuth/settings.html', context)
 
 
 def logout_view(request):

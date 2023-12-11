@@ -65,4 +65,10 @@ urlpatterns = [
     #! making address default url
     path('make-default-address', views.make_address_default_view, name="make-default-address"),
 
+    #! adding to wishlist url
+    path('add-to-wishlist', views.add_to_wishlist_view, name="add-to-wishlist"),
+
+    #! wishlist view url
+    path('wishlist', views.wishlist_view, name="wishlist"),
+
 ]

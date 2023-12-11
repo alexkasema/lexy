@@ -380,3 +380,37 @@ def make_address_default_view(request):
     return JsonResponse({
         "boolean": True,
     })
+
+def add_to_wishlist_view(request):
+    id = request.GET['id']
+
+    product = Product.objects.get(id=id)
+
+    context = {}
+
+    wishlist_count = WishList.objects.filter(product=product, user=request.user).count()
+
+    if wishlist_count > 0:
+        context = {
+            "bool": True,
+        }
+    else:
+        new_wishlist = WishList.objects.create(
+            product=product,
+            user=request.user
+        )
+        context = {
+            "bool": True,
+        }
+
+    return JsonResponse(context)
+
+@login_required
+def wishlist_view(request):
+    try:
+        wishlist = WishList.objects.filter(user=request.user)
+    except:
+        wishlist = None
+
+    context = {'wishlist': wishlist}
+    return render(request, 'core/wishlist.html', context)
