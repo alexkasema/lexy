@@ -71,4 +71,7 @@ urlpatterns = [
     #! wishlist view url
     path('wishlist', views.wishlist_view, name="wishlist"),
 
+    #! removing from wishlist view url
+    path('remove-from-wishlist', views.remove_from_wishlist, name="remove-from-wishlist"),
+
 ]

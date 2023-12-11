@@ -14,6 +14,8 @@ from . forms import ProductReviewForm
 
 from django.contrib.auth.decorators import login_required
 
+from django.core import serializers
+
 #! for paypal
 from django.urls import reverse
 from django.conf import settings
@@ -414,3 +416,23 @@ def wishlist_view(request):
 
     context = {'wishlist': wishlist}
     return render(request, 'core/wishlist.html', context)
+
+def remove_from_wishlist(request):
+
+    id = request.GET['id']
+    wishlist = WishList.objects.filter(user=request.user)
+
+    product = WishList.objects.get(id=id)
+    product.delete()
+
+    context = {
+        'bool': True,
+        'wishlist': wishlist,
+    }
+
+    wishlist_json = serializers.serialize('json', wishlist)
+
+    data = render_to_string("core/async/wishlist-list.html", context)
+    return JsonResponse({
+        "data": data, "wishlist": wishlist_json
+    })
