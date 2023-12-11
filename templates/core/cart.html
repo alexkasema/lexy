@@ -50,7 +50,7 @@
                                         <h5><a href="{% url 'core:product' item.pid %}">{{item.title}}</a></h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${{item.price|floatformat:2}}
+                                        <span>$</span>{{item.price|floatformat:2}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <!-- <div class="quantity">

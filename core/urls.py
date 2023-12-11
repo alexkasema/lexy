@@ -74,4 +74,10 @@ urlpatterns = [
     #! removing from wishlist view url
     path('remove-from-wishlist', views.remove_from_wishlist, name="remove-from-wishlist"),
 
+    #! contact view url
+    path('contact', views.contact_view, name="contact"),
+
+    #! ajax contact view url
+    path('ajax-contact-form', views.ajax_contact, name="ajax-contact-form"),
+
 ]

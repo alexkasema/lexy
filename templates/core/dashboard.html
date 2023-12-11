@@ -96,8 +96,42 @@
         {% endfor %}
         <br>
     </div>
+    <div class="row">
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
 
     </div>
 </div>
+
+<script>
+    const ctx = document.getElementById('myChart');
+    const labels = {{ month|safe }}
+  
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '# Orders',
+          data: {{total_orders|safe}},
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+  </script>
 
 {% endblock content %}

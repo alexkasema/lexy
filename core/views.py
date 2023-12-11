@@ -4,17 +4,22 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 
 from . models import Product, Category, Vendor, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
+from userAuth.models import ContactUs
+
 from taggit.models import Tag
 
 from django.contrib import messages #! for flash messages
 
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 from . forms import ProductReviewForm
 
 from django.contrib.auth.decorators import login_required
 
 from django.core import serializers
+
+import calendar
+from django.db.models.functions import ExtractMonth
 
 #! for paypal
 from django.urls import reverse
@@ -346,6 +351,15 @@ def dashboard_view(request):
 
     addresses = Address.objects.filter(user=request.user)
 
+    my_orders = CartOrder.objects.annotate(month=ExtractMonth("order_date")).values("month").annotate(count=Count("id")).values("month", "count")
+
+    month = []
+    total_orders = []
+
+    for o in my_orders:
+        month.append(calendar.month_name[o["month"]])
+        total_orders.append(o["count"])
+
     if request.method == "POST":
         address = request.POST.get("address")
         mobile = request.POST.get("mobile")
@@ -358,9 +372,13 @@ def dashboard_view(request):
         messages.success(request, "Address Added successfully")
         return redirect("core:dashboard")
 
+
     context = {
         'orders': orders,
         'address': addresses,
+        'my_orders': my_orders,
+        'month': month,
+        'total_orders': total_orders,
     }
     return render(request, 'core/dashboard.html', context)
 
@@ -435,4 +453,29 @@ def remove_from_wishlist(request):
     data = render_to_string("core/async/wishlist-list.html", context)
     return JsonResponse({
         "data": data, "wishlist": wishlist_json
+    })
+
+def contact_view(request):
+
+    context = {}
+    return render(request, 'core/contact.html', context)
+
+def ajax_contact(request):
+    full_name = request.GET['full_name']
+    email = request.GET['email']
+    message = request.GET['message']
+
+    contact = ContactUs.objects.create(
+        full_name = full_name,
+        email = email,
+        message = message
+    )
+
+    data = {
+        "bool": True,
+        "message": "Message sent successfully"
+    }
+
+    return JsonResponse({
+        "data": data
     })
